@@ -1,0 +1,4 @@
+mediapipe
+ipykernel
+imageio
+av
