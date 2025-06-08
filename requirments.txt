@@ -2,3 +2,5 @@ mediapipe
 ipykernel
 imageio
 av
+scipy
+pillow
