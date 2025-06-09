@@ -11,6 +11,7 @@ from mediapipe.framework.formats import landmark_pb2
 from scipy.signal import find_peaks
 import pickle
 from src.head_tracker import HeadTracker
+from src.nodding_tracker import NoddingDetector
 
 
 def main(video_path, model_path, output_dir):
@@ -58,7 +59,46 @@ def main(video_path, model_path, output_dir):
         pickle.dump(detection_data, f)
     
     print("Video procesing complete! Total samples:", len(detection_data))
+    
+    nodding_tracker = NoddingDetector()
+    nodding_intervals = nodding_tracker.detect_nodding(pitch_data)
+    print(f"Detected {len(nodding_intervals)} nods.")
+    
+    # save nodding intervals
+    with open(os.path.join(output_dir, f"{video_stem}_nodding.pkl"), "wb") as f:
+        pickle.dump(nodding_intervals, f)
+    
+    # prepare final video output
+    detection_name = f"{video_stem}_detection"
+    detection_path = os.path.join(output_dir, f"{detection_name}.mp4")
+    
+    nodding_counter = 0
+    current_nodding = nodding_intervals.pop(0)
+    
+    # draw nodding counter
+    font = ImageFont.truetype("DejaVuSans.ttf", size=64)
+    with iio.imopen(detection_path, "w", plugin="pyav") as output:
+        output.init_video_stream("h264", fps=fps)
+        input = iio.imiter(out_video_path, plugin="pyav")
+        
+        for i, frame in enumerate(input):
+            start, end = current_nodding
+            img = Image.fromarray(frame)
+            draw = ImageDraw.Draw(img)
+            
+            if i >= end - 1:
+                nodding_counter += 1
+                if len(nodding_intervals) > 0:
+                    current_nodding = nodding_intervals.pop(0)
+                    
+            draw.text((30, 120), f"Nods: {nodding_counter}", fill=(0, 255, 0), font=font)       
+            output.write_frame(np.array(img)) 
+        
+            # Show progress bar
+            progress = i / float(fps) / duration * 100
+            print(f"Progress: {progress:.2f}%", end="\r")
 
+    print("Final video procesing complete!")
 
 
 

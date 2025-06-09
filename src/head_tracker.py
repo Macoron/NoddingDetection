@@ -10,6 +10,9 @@ from PIL import Image, ImageDraw, ImageFont
 
 MODEL_URL = "https://storage.googleapis.com/mediapipe-models/face_landmarker/face_landmarker/float16/latest/face_landmarker.task" 
 
+"""
+Mediapipe face landmarker and head tracker.
+"""
 class HeadTracker:
     def __init__(self, model_path):
         self.landmarker = self.load_model(model_path)
