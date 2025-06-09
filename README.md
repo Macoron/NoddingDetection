@@ -2,6 +2,12 @@
 
 Detects nodding head movement.
 
+## Examples
+
+https://github.com/user-attachments/assets/ebc60ecd-56fb-4249-81b2-641c670e02f6
+
+https://github.com/user-attachments/assets/7cdc485a-5a58-4275-bd82-007ba813fe02
+
 ## Getting Started
 
 Clone the repository and install the dependencies:
@@ -33,3 +39,5 @@ After inference the program will save the results using the following format:
 - User is expected to be facing the camera and stay not further away than 2 meters.
 - The face is expected to be always visible and not occluded.
 - The nodding is assumpted to be a pattern of moving head one time up and one time down.
+
+To learn more about check the [research notebook](notebooks/research.ipynb).
