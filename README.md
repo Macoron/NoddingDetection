@@ -4,9 +4,9 @@ Detects nodding head movement.
 
 ## Examples
 
-https://github.com/user-attachments/assets/ebc60ecd-56fb-4249-81b2-641c670e02f6
+https://github.com/user-attachments/assets/26cad9d5-cd8e-48ee-bc72-190b26e25ef4
 
-https://github.com/user-attachments/assets/7cdc485a-5a58-4275-bd82-007ba813fe02
+https://github.com/user-attachments/assets/6d198aad-6366-4476-9607-86314b6b81a5
 
 ## Getting Started
 

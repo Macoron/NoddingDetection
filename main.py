@@ -86,7 +86,7 @@ def main(video_path, model_path, output_dir):
             img = Image.fromarray(frame)
             draw = ImageDraw.Draw(img)
             
-            if i >= end - 1:
+            if i == end - 1:
                 nodding_counter += 1
                 if len(nodding_intervals) > 0:
                     current_nodding = nodding_intervals.pop(0)
